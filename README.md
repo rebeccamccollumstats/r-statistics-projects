@@ -48,11 +48,11 @@ r-statistics-projects/
 │
 ├── README.md
 ├── projects/
-│   ├── project-01/
-│   ├── project-02/
-│   └── project-03/
-|   └── project-04/
-|   └── project-05/
+│ Project 1 | Anime Ratings, Genres, and Popularity: exploratory data analysis |
+| Project 2 | Magic: The Gathering Card Ratings Analysis: hypothesis testing |
+| Project 3 | Pokémon Card Price Prediction: regression modeling |
+| Project 4 | Coffee Sales Forecasting: time series analysis |
+| Project 5 | Coffee Quality Analysis: advanced analytics / multivariate modeling |
 │
 ├── data/
 │   ├── sample/
