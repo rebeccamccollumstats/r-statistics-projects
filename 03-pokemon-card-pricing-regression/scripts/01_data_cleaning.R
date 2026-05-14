@@ -7,12 +7,13 @@ library(tidyverse)
 library(janitor)
 library(skimr)
 
-# Create output folders if they do not already exist
+# Create folders for cleaned data and output tables if they do not already exist
 dir.create("data/cleaned", recursive = TRUE, showWarnings = FALSE)
 dir.create("outputs/tables", recursive = TRUE, showWarnings = FALSE)
 dir.create("outputs/figures", recursive = TRUE, showWarnings = FALSE)
 
 # Load raw data
+# The raw CSV should be saved in the data/raw folder.
 pokemon_raw <- read_csv(
   "data/raw/pokemon_cards_ultimate_2026.csv",
   show_col_types = FALSE
@@ -39,11 +40,14 @@ missing_summary <- pokemon_clean %>%
 
 print(missing_summary)
 
-# Save missing value summary
+# Save missing value summary table
 write_csv(
   missing_summary,
   "outputs/tables/missing_value_summary.csv"
 )
+
+# Print cleaned column names
+names(pokemon_clean)
 
 # Clean and prepare analysis dataset
 pokemon_clean <- pokemon_clean %>%
@@ -58,7 +62,7 @@ pokemon_clean <- pokemon_clean %>%
     grading_company = if_else(is.na(grading_company), "Ungraded", grading_company),
     numeric_grade = if_else(is.na(numeric_grade), 0, numeric_grade),
 
-    # Handle small number of missing sale date values
+    # Handle small number of missing date-related values
     days_since_sold = if_else(
       is.na(days_since_sold),
       median(days_since_sold, na.rm = TRUE),
@@ -99,7 +103,7 @@ pokemon_clean <- pokemon_clean %>%
     ships_worldwide = as.factor(ships_worldwide)
   )
 
-# Confirm important missing values were handled
+# Check that selected missing value fixes worked
 missing_value_checks <- tibble(
   variable = c("numeric_grade", "grading_company", "days_since_sold"),
   remaining_missing = c(
@@ -111,6 +115,7 @@ missing_value_checks <- tibble(
 
 print(missing_value_checks)
 
+# Save missing value check table
 write_csv(
   missing_value_checks,
   "outputs/tables/missing_value_checks.csv"
