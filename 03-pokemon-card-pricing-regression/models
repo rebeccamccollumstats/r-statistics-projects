@@ -1,7 +1,3 @@
-# 05_final_ridge_model.R
-# Project 3: Pokemon Card Price Prediction
-# Purpose: Fit the final selected Ridge regression model and save final outputs.
-
 library(tidyverse)
 library(tidymodels)
 library(scales)
