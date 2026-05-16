@@ -1,1 +1,107 @@
+# 05_final_ridge_model.R
+# Project 3: Pokemon Card Price Prediction
+# Purpose: Fit the final selected Ridge regression model and save final outputs.
 
+library(tidyverse)
+library(tidymodels)
+library(scales)
+
+# ---------------------------------------------------------
+# Load data
+# ---------------------------------------------------------
+
+pokemon_model_data <- read_csv("~/Desktop/03-pokemon-card-pricing-regression/data/cleaned/pokemon_cards_eda.csv")
+
+# ---------------------------------------------------------
+# Prepare modeling data
+# ---------------------------------------------------------
+
+model_data <- pokemon_model_data %>%
+  select(
+    -price,
+    -price_usd,
+    -price_tier_usd,
+    -currency,
+    -title,
+    -card_number
+  ) %>%
+  drop_na(log_price_usd)
+
+# ---------------------------------------------------------
+# Train/Test Split
+# ---------------------------------------------------------
+
+pokemon_split <- initial_split(model_data, prop = 0.80, strata = log_price_usd)
+
+pokemon_train <- training(pokemon_split)
+pokemon_test <- testing(pokemon_split)
+
+# ---------------------------------------------------------
+# Final Ridge Recipe
+# ---------------------------------------------------------
+
+ridge_recipe <- recipe(log_price_usd ~ ., data = pokemon_train) %>%
+  step_other(all_nominal_predictors(), threshold = 0.01) %>%
+  step_unknown(all_nominal_predictors()) %>%
+  step_dummy(all_nominal_predictors()) %>%
+  step_zv(all_predictors()) %>%
+  step_normalize(all_numeric_predictors())
+
+# ---------------------------------------------------------
+# Final Ridge Model
+# ---------------------------------------------------------
+
+final_ridge_model <- linear_reg(
+  penalty = 0.418,
+  mixture = 0
+) %>%
+  set_engine("glmnet")
+
+final_ridge_workflow <- workflow() %>%
+  add_recipe(ridge_recipe) %>%
+  add_model(final_ridge_model)
+
+final_ridge_fit <- final_ridge_workflow %>%
+  fit(data = pokemon_train)
+
+# ---------------------------------------------------------
+# Predictions
+# ---------------------------------------------------------
+
+ridge_predictions <- predict(final_ridge_fit, pokemon_test) %>%
+  bind_cols(pokemon_test) %>%
+  mutate(
+    predicted_price_usd = exp(.pred),
+    actual_price_usd = exp(log_price_usd),
+    residual_usd = actual_price_usd - predicted_price_usd
+  )
+
+# ---------------------------------------------------------
+# Metrics
+# ---------------------------------------------------------
+
+ridge_log_metrics <- ridge_predictions %>%
+  metrics(truth = log_price_usd, estimate = .pred)
+
+ridge_price_metrics <- ridge_predictions %>%
+  summarise(
+    rmse_usd = sqrt(mean((actual_price_usd - predicted_price_usd)^2)),
+    mae_usd = mean(abs(actual_price_usd - predicted_price_usd)),
+    mean_actual_price_usd = mean(actual_price_usd),
+    median_actual_price_usd = median(actual_price_usd)
+  )
+
+print(ridge_log_metrics)
+print(ridge_price_metrics)
+
+
+# ---------------------------------------------------------
+# Save final trained model
+# ---------------------------------------------------------
+
+dir.create("models", showWarnings = FALSE)
+
+saveRDS(
+  final_ridge_fit,
+  "models/final_ridge_model.rds"
+)
