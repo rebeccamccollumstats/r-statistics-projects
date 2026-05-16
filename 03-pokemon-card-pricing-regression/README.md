@@ -289,3 +289,44 @@ The next modeling step is to compare the baseline linear regression model agains
 - boosted tree models
 
 These models may improve performance by handling correlated predictors, nonlinear relationships, and high-cardinality categorical features more effectively.
+
+## Step 4: Model Comparison
+
+After building the baseline linear regression model, I compared several regression approaches to evaluate whether regularized or nonlinear models could improve prediction performance.
+
+The models compared were:
+
+- Linear regression
+- Ridge regression
+- Lasso regression
+- Random forest regression
+
+Each model was evaluated using test set performance on the log-transformed target variable, `log_price_usd`.
+
+| Model | RMSE | MAE | R-squared |
+|---|---:|---:|---:|
+| Ridge Regression | 1.02 | 0.846 | 0.524 |
+| Linear Regression | 1.06 | 0.866 | 0.532 |
+| Lasso Regression | 1.06 | 0.865 | 0.487 |
+| Random Forest | 1.08 | 0.852 | 0.472 |
+
+Ridge regression produced the lowest RMSE and MAE, making it the strongest overall predictive model in this comparison. Although the ordinary linear regression model had a slightly higher R-squared value, Ridge regression had better prediction error metrics, which were prioritized for model selection.
+
+The best Ridge model used a penalty value of `0.418`.
+
+### 4a. Final Model Selection
+
+Ridge regression was selected as the preferred model because it performed best on prediction error while also addressing an important limitation of ordinary linear regression: correlated predictors. Several variables in the dataset describe overlapping pricing signals, especially grading-related fields such as `is_graded`, `numeric_grade`, `grading_company`, and `condition_std`.
+
+Because Ridge regression shrinks coefficients rather than removing them entirely, it is useful when many predictors may contribute some information but are correlated with each other. This made Ridge a strong fit for the Pokémon card pricing dataset.
+
+### 4b. Model Comparison Takeaways
+
+The model comparison showed that:
+
+- Ridge regression had the best overall prediction accuracy based on RMSE and MAE.
+- Linear regression remained competitive but was more vulnerable to unstable coefficients.
+- Lasso regression did not improve performance, suggesting that completely removing predictors was not as helpful for this dataset.
+- Random forest did not outperform the linear or regularized models, possibly because the dataset was relatively small and contained many sparse categorical levels.
+
+Overall, the results suggest that a regularized linear model is a strong choice for this pricing prediction problem.
