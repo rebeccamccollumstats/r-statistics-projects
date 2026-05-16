@@ -330,3 +330,41 @@ The model comparison showed that:
 - Random forest did not outperform the linear or regularized models, possibly because the dataset was relatively small and contained many sparse categorical levels.
 
 Overall, the results suggest that a regularized linear model is a strong choice for this pricing prediction problem.
+
+## Step 5: Final Ridge Regression Model
+
+Ridge regression was selected as the final model because it produced the best overall prediction error during model comparison. The final model used `log_price_usd` as the target variable and excluded direct price-derived variables such as `price`, `price_usd`, and `price_tier_usd` to prevent data leakage.
+
+### 5a. Final Model Performance
+
+| Metric | Value |
+|---|---:|
+| RMSE, log scale | 1.022 |
+| MAE, log scale | 0.846 |
+| R-squared | 0.524 |
+| RMSE, USD scale | $130.47 |
+| MAE, USD scale | $29.52 |
+| Mean actual test price | $39.16 |
+| Median actual test price | $5.70 |
+
+The final Ridge model explained approximately **52.4% of the variation in log-transformed Pokémon card prices**. This indicates that rarity, condition, grading information, seller characteristics, and card-level features contain meaningful predictive information.
+
+The model performed better on the log-transformed price scale than on the raw dollar scale. This is expected because Pokémon card prices were highly right-skewed, with most cards selling at relatively low prices and a small number of high-value cards creating large prediction errors.
+
+### 5b. Prediction Diagnostics
+
+![Final Ridge Actual vs Predicted Prices](visuals/11_final_ridge_actual_vs_predicted_usd.png)
+
+The dollar-scale actual vs. predicted plot shows that most observations are clustered near lower prices, while a small number of expensive cards dominate the scale. These high-value cards are harder for the model to predict accurately.
+
+![Final Ridge Actual vs Predicted Log Prices](visuals/12_final_ridge_actual_vs_predicted_log.png)
+
+The log-scale actual vs. predicted plot shows a clearer positive relationship between observed and predicted prices. This supports the decision to use `log_price_usd` as the modeling target.
+
+![Final Ridge Residual Plot](visuals/13_final_ridge_residual_plot.png)
+
+The residual plot shows that prediction errors are generally smaller for low-price cards and much larger for high-value cards. This suggests that the model captures common lower-priced listings better than rare or unusually expensive collectibles.
+
+### 5c. Final Model Takeaway
+
+The Ridge regression model provided a strong final baseline for this project. It improved prediction error compared with ordinary linear regression and handled correlated predictors more effectively. However, the model still struggled with high-value outliers, suggesting that future improvements could include additional card-specific market features, larger sample sizes, or more advanced nonlinear modeling approaches.
