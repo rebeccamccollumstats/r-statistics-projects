@@ -127,4 +127,94 @@ At the end of Step 1, the cleaned dataset was saved as:
 ```text
 data/cleaned/pokemon_card_pricing_cleaned_initial.csv
 
+---
+
+## Step 2: Exploratory Data Analysis
+
+After cleaning the Pokémon card pricing dataset, the final analysis dataset contained **541 observations** and **33 variables**. The dataset included a mix of categorical card attributes, numeric listing features, and engineered indicator variables such as whether a card was graded, holo, full art, promo, first edition, or part of a special card category.
+
+### 2a. Price Distribution
+
+The raw `price_usd` variable was highly right-skewed. Most cards were listed or sold at relatively low prices, while a smaller number of high-value cards created a long right tail in the distribution.
+
+The summary statistics showed:
+
+| Statistic | Price USD |
+|---|---:|
+| Minimum | $0.49 |
+| 1st Quartile | $2.04 |
+| Median | $5.37 |
+| Mean | $39.90 |
+| 3rd Quartile | $15.20 |
+| Maximum | $1,591.00 |
+
+The large difference between the median price and mean price shows that a small number of expensive cards strongly influenced the average. Because of this skew, I used the natural log of price, `log_price_usd`, as the target variable for regression modeling. The log transformation made the price distribution more suitable for linear modeling by reducing the effect of extreme high-value observations.
+
+### 2b. Rarity and Price
+
+Rarity class showed a clear relationship with card value. Higher-rarity cards generally had much higher median prices than common or uncommon cards.
+
+| Rarity Class | Count | Median Price USD | Mean Price USD |
+|---|---:|---:|---:|
+| HR | 1 | $449.00 | $449.00 |
+| SAR | 7 | $235.00 | $366.00 |
+| SIR | 6 | $73.70 | $162.00 |
+| SR | 7 | $19.00 | $155.00 |
+| IR | 19 | $10.90 | $14.20 |
+| Rare Holo | 37 | $10.10 | $25.90 |
+| Rare | 55 | $6.87 | $40.70 |
+| Common | 10 | $2.51 | $4.29 |
+| Uncommon | 7 | $1.35 | $3.46 |
+
+These results suggest that rarity is an important predictor of Pokémon card price. However, some rarity groups had small sample sizes, so results for rare categories such as HR should be interpreted cautiously.
+
+### 2c. Condition and Grading
+
+Condition and professional grading status also appeared to be strongly related to card value. Graded cards had substantially higher median prices than raw cards listed as Near Mint, Excellent, Lightly Played, or Very Good.
+
+| Condition | Count | Median Price USD | Mean Price USD |
+|---|---:|---:|---:|
+| BGS | 4 | $885.00 | $870.00 |
+| PSA 9 | 1 | $721.00 | $721.00 |
+| PSA 10 | 8 | $289.00 | $301.00 |
+| ACE 10 | 10 | $57.00 | $72.70 |
+| CGC | 5 | $45.70 | $103.00 |
+| ACE 9 | 11 | $34.00 | $33.00 |
+| Near Mint | 397 | $6.23 | $30.90 |
+| Excellent | 81 | $2.35 | $3.40 |
+| Lightly Played | 7 | $1.35 | $18.80 |
+| Very Good | 17 | $1.17 | $42.00 |
+
+This supports including grading-related variables such as `is_graded`, `grading_company`, and `numeric_grade` in the regression model. As with rarity, some grading categories had small sample sizes, so those results should be interpreted as exploratory rather than definitive.
+
+### 2d. Correlation Analysis
+
+A correlation analysis was conducted using the numeric variables and the log-transformed price target. The strongest positive numeric relationship with `log_price_usd` was `is_graded`, followed by `numeric_grade`. This indicates that graded cards and cards with higher numeric grades tend to have higher prices.
+
+Some of the strongest correlations with `log_price_usd` were:
+
+| Variable | Correlation with `log_price_usd` |
+|---|---:|
+| `is_graded` | 0.471 |
+| `numeric_grade` | 0.381 |
+| `image_count` | 0.214 |
+| `is_gold` | 0.185 |
+| `days_since_sold` | 0.180 |
+| `seller_listing_count` | -0.333 |
+| `ships_worldwide` | -0.251 |
+
+The negative correlations for `seller_listing_count` and `ships_worldwide` may suggest that cards from larger-volume sellers or listings with worldwide shipping were associated with lower prices in this dataset. These relationships may reflect seller behavior, card availability, or listing strategy rather than direct causal effects.
+
+### 2e. Key EDA Takeaways
+
+The exploratory analysis showed that Pokémon card prices are influenced by a combination of collectible features, condition, grading, and listing characteristics. The most important early findings were:
+
+- Pokémon card prices were highly right-skewed, making log transformation necessary for regression modeling.
+- Rarity class was strongly associated with price, with higher-rarity cards generally selling for more.
+- Professionally graded cards had much higher prices than raw condition cards.
+- `is_graded` and `numeric_grade` were among the strongest numeric predictors of log-transformed price.
+- Some high-value categories had small sample sizes, so model results should be interpreted with caution.
+
+Based on these findings, the regression model uses `log_price_usd` as the target variable and excludes direct price-derived variables such as `price`, `price_usd`, and `price_tier_usd` to avoid data leakage.
+
 
