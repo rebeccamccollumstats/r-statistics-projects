@@ -353,13 +353,13 @@ The model performed better on the log-transformed price scale than on the raw do
 
 ### 5b. Prediction Diagnostics
 
-![Final Ridge Actual vs Predicted Prices](figures/16_final_ridge_actual_vs_predicted_usd.png)
-
-The dollar-scale actual vs. predicted plot shows that most observations are clustered near lower prices, while a small number of expensive cards dominate the scale. These high-value cards are harder for the model to predict accurately.
-
 ![Final Ridge Actual vs Predicted Log Prices](figures/15_final_ridge_actual_vs_predicted_log.png)
 
 The log-scale actual vs. predicted plot shows a clearer positive relationship between observed and predicted prices. This supports the decision to use `log_price_usd` as the modeling target.
+
+![Final Ridge Actual vs Predicted Prices](figures/16_final_ridge_actual_vs_predicted_usd.png)
+
+The dollar-scale actual vs. predicted plot shows that most observations are clustered near lower prices, while a small number of expensive cards dominate the scale. These high-value cards are harder for the model to predict accurately.
 
 ![Final Ridge Residual Plot](figures/17_final_ridge_residual_plot.png)
 
