@@ -370,6 +370,101 @@ After comparing linear regression, Ridge regression, Lasso regression, and Rando
 
 The model performed best for lower-priced cards and struggled more with rare, high-value cards. This suggests that future improvements could include a larger dataset, more detailed card metadata, population/grading data, set popularity, character popularity, or historical market demand features.
 
+## 6. Using the Final Model for Prediction
+
+After selecting Ridge regression as the final model, I saved the trained workflow as an `.rds` file so it can be reused for future predictions without retraining the model each time.
+
+The saved model is located at:
+
+```text
+models/final_ridge_model.rds
+```
+
+A prediction example is included in:
+
+```text
+scripts/06_make_prediction_example.R
+```
+
+### 6a. Prediction Workflow
+
+The final Ridge model predicts `log_price_usd`, which is the natural log of the card price in U.S. dollars. Because the model output is on the log scale, the prediction must be converted back into dollars using the exponential function:
+
+```r
+predicted_price_usd = exp(.pred)
+```
+
+This allows the model output to be interpreted as an estimated card price in USD.
+
+### 6b. Example Prediction
+
+An example card listing was created with the same predictor variables used during model training. The example listing included card-level features, rarity, language, condition, grading status, seller information, listing image count, and sale date features.
+
+The model returned the following prediction:
+
+| Output | Value |
+|---|---:|
+| Predicted log price | 3.43 |
+| Predicted USD price | $31.00 |
+
+This means the final Ridge regression model estimated the example Pokémon card listing at approximately **$31.00**.
+
+### 6c. Required Input Variables
+
+To generate a prediction, a new card listing must contain the same predictor columns used during model training:
+
+```text
+pokemon_name
+set_name
+rarity_class
+language
+category
+condition_std
+is_graded
+grading_company
+numeric_grade
+is_holo
+is_full_art
+is_v_card
+is_ex_card
+is_gx_card
+is_promo
+is_shadowless
+is_1st_edition
+is_rainbow
+is_gold
+seller_country
+seller_listing_count
+ships_worldwide
+image_count
+days_since_sold
+sale_month
+sale_year
+```
+
+Direct price-related variables should not be included in prediction inputs because they would create data leakage. These excluded variables include:
+
+```text
+price
+price_usd
+price_tier_usd
+currency
+title
+card_number
+```
+
+### 6d. Interpretation
+
+This prediction workflow shows how the trained model can be reused to estimate a Pokémon card listing price based on card characteristics, grading information, rarity, condition, seller details, and listing features.
+
+The predicted price should be interpreted as an estimate, not an exact market value. The final model performed better for lower- and mid-priced cards and struggled more with rare high-value cards, which created large residuals in the final model diagnostics.
+
+### 6e. Model Reusability
+
+Saving the trained Ridge model makes the project reusable. Instead of rerunning the full cleaning, EDA, model comparison, and training workflow, a user can load the saved model and provide a new card listing with the required predictor variables.
+
+This makes the project closer to a real-world predictive modeling workflow, where a trained model can be used to generate predictions on new observations.
+
 ## Skills Demonstrated
 
 - Data cleaning and preprocessing in R
