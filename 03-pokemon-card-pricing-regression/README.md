@@ -385,9 +385,3 @@ The model performed best for lower-priced cards and struggled more with rare, hi
 - Model comparison using RMSE, MAE, and R-squared
 - Prediction diagnostics and residual analysis
 - GitHub project organization
-
-## Data Dictionary
-
-A project data dictionary is included in the repository to document variable names, descriptions, and modeling relevance.
-
-[View Data Dictionary](outputs/tables/data_dictionary.md)
