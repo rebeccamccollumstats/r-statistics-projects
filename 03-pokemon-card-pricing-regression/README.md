@@ -122,12 +122,14 @@ The variables checked were:
 
 ### Step 1 Output
 
-At the end of Step 1, the cleaned dataset was saved as:
+The cleaned dataset was saved to:
 
 ```text
 data/cleaned/pokemon_card_pricing_cleaned_initial.csv
+```
 
----
+This cleaned file was used as the starting point for exploratory data analysis and regression modeling.
+
 
 ## Step 2: Exploratory Data Analysis
 
