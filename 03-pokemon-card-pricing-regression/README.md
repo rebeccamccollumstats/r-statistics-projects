@@ -219,4 +219,73 @@ The exploratory analysis showed that Pokémon card prices are influenced by a co
 
 Based on these findings, the regression model uses `log_price_usd` as the target variable and excludes direct price-derived variables such as `price`, `price_usd`, and `price_tier_usd` to avoid data leakage.
 
+## Step 3: Baseline Regression Model
 
+After completing exploratory data analysis, I built a baseline linear regression model to predict Pokémon card prices. Because the raw price variable was highly right-skewed, the model used `log_price_usd` as the target variable instead of raw `price_usd`.
+
+### 3a. Modeling Approach
+
+The dataset was split into an 80% training set and a 20% testing set. A baseline linear regression model was fit using the `tidymodels` framework in R.
+
+To avoid data leakage, direct price-related variables were removed from the predictor set:
+
+- `price`
+- `price_usd`
+- `price_tier_usd`
+- `currency`
+
+Additional high-cardinality or less useful baseline fields such as `title` and `card_number` were also removed before modeling.
+
+The preprocessing recipe included:
+
+- grouping rare categorical levels with `step_other()`
+- handling unknown categorical values with `step_unknown()`
+- creating dummy variables for categorical predictors with `step_dummy()`
+- removing zero-variance predictors with `step_zv()`
+- normalizing numeric predictors with `step_normalize()`
+
+### 3b. Baseline Model Performance
+
+The baseline linear regression model was evaluated on the test set.
+
+| Metric | Value |
+|---|---:|
+| RMSE, log scale | 1.11 |
+| MAE, log scale | 0.894 |
+| R-squared | 0.568 |
+| RMSE, USD scale | $114.00 |
+| MAE, USD scale | $32.60 |
+| Mean actual test price | $61.00 |
+| Median actual test price | $6.11 |
+
+The model explained approximately **56.8% of the variation in log-transformed card prices**. This suggests that the available card characteristics, grading information, rarity indicators, and seller/listing features contain meaningful predictive information.
+
+However, prediction error on the dollar scale was heavily affected by high-value outliers. The test set had a median actual price of only **$6.11**, but the mean actual price was **$61.00**, showing that a small number of expensive cards strongly influenced dollar-scale error metrics such as RMSE.
+
+### 3c. Model Interpretation
+
+The baseline model performed better on the log-transformed price scale than on the raw dollar scale. This supports the decision to model `log_price_usd`, since Pokémon card prices are highly skewed and include extreme high-value observations.
+
+The actual vs. predicted log-price plot showed a moderate positive relationship between observed and predicted values, but the model still struggled with some high-value cards. The dollar-scale prediction plot and residual plot showed that prediction errors were largest for expensive cards, which is expected in a collectibles pricing dataset with large price variation.
+
+### 3d. Baseline Model Limitations
+
+This model should be interpreted as a baseline rather than a final predictive model. Some limitations include:
+
+- High-value cards created large residuals on the dollar scale.
+- Some rare categories had small sample sizes.
+- Several grading-related variables overlap with each other, which can cause instability in ordinary linear regression coefficients.
+- Linear regression may not fully capture nonlinear relationships between rarity, grading, seller behavior, and price.
+
+During model fitting, the linear model produced a rank-deficiency warning, which suggests that some predictors were redundant after dummy encoding. This is likely due to overlap between variables such as `is_graded`, `numeric_grade`, `grading_company`, and `condition_std`.
+
+### 3e. Next Steps
+
+The next modeling step is to compare the baseline linear regression model against regularized and nonlinear models, such as:
+
+- ridge regression
+- lasso regression
+- random forest regression
+- boosted tree models
+
+These models may improve performance by handling correlated predictors, nonlinear relationships, and high-cardinality categorical features more effectively.
