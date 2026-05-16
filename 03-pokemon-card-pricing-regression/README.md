@@ -2,13 +2,13 @@
 
 **Project Type:** Regression Modeling  
 **Primary Tool:** R  
-**Project Status:** In Progress  
+**Project Status:** Completed — Future improvements possible
 
 ### Project Overview
 
 Project 3 is a regression modeling project titled **Pokémon Card Price Prediction: An E-Commerce Pricing Analysis in R**. This project uses a Pokémon card sales/listing dataset to examine which card and listing features are associated with market price.
 
-The main response variable for this project is `price_usd` because it standardizes all prices into the same currency. The original `price` column is still useful for reference, but it depends on the listing’s original currency. For modeling and comparison, `price_usd` is the cleaner and more consistent target variable.
+The main price variable is `price_usd`, which standardizes all prices into U.S. dollars. Because card prices were highly right-skewed, the regression models used `log_price_usd` as the final response variable. The original `price` column is still useful for reference, but it depends on the listing’s original currency. For modeling and comparison, `price_usd` is the cleaner and more consistent target variable.
 
 ---
 
@@ -279,16 +279,9 @@ This model should be interpreted as a baseline rather than a final predictive mo
 
 During model fitting, the linear model produced a rank-deficiency warning, which suggests that some predictors were redundant after dummy encoding. This is likely due to overlap between variables such as `is_graded`, `numeric_grade`, `grading_company`, and `condition_std`.
 
-### 3e. Next Steps
+### ### 3e. Transition to Model Comparison
 
-The next modeling step is to compare the baseline linear regression model against regularized and nonlinear models, such as:
-
-- ridge regression
-- lasso regression
-- random forest regression
-- boosted tree models
-
-These models may improve performance by handling correlated predictors, nonlinear relationships, and high-cardinality categorical features more effectively.
+Because the baseline linear regression model showed useful but imperfect predictive performance, I next compared it against regularized and nonlinear models. This allowed me to evaluate whether Ridge regression, Lasso regression, or Random Forest regression could improve prediction accuracy.
 
 ## Step 4: Model Comparison
 
@@ -368,3 +361,33 @@ The residual plot shows that prediction errors are generally smaller for low-pri
 ### 5c. Final Model Takeaway
 
 The Ridge regression model provided a strong final baseline for this project. It improved prediction error compared with ordinary linear regression and handled correlated predictors more effectively. However, the model still struggled with high-value outliers, suggesting that future improvements could include additional card-specific market features, larger sample sizes, or more advanced nonlinear modeling approaches.
+
+## Conclusion
+
+This project used regression modeling to predict Pokémon card prices from card attributes, rarity, condition, grading information, seller characteristics, and listing features. Exploratory analysis showed that card prices were highly right-skewed, so the final models used `log_price_usd` as the response variable.
+
+After comparing linear regression, Ridge regression, Lasso regression, and Random Forest regression, Ridge regression was selected as the final model because it produced the lowest RMSE and MAE on the test set. The final model explained approximately 52.4% of the variation in log-transformed card prices.
+
+The model performed best for lower-priced cards and struggled more with rare, high-value cards. This suggests that future improvements could include a larger dataset, more detailed card metadata, population/grading data, set popularity, character popularity, or historical market demand features.
+
+## Skills Demonstrated
+
+- Data cleaning and preprocessing in R
+- Exploratory data analysis
+- Feature engineering
+- Log transformation for skewed response variables
+- Train/test splitting
+- Cross-validation
+- Linear regression
+- Ridge regression
+- Lasso regression
+- Random Forest regression
+- Model comparison using RMSE, MAE, and R-squared
+- Prediction diagnostics and residual analysis
+- GitHub project organization
+
+## Data Dictionary
+
+A project data dictionary is included in the repository to document variable names, descriptions, and modeling relevance.
+
+[View Data Dictionary](outputs/tables/data_dictionary.md)
