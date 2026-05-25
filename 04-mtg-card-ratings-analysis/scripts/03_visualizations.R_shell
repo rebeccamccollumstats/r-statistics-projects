@@ -1,0 +1,112 @@
+# 03_visualizations.R
+# Project: [Project Name]
+# Purpose: Create visualizations for the EDA project.
+
+library(tidyverse)
+library(scales)
+
+# ---------------------------------------------------------
+# 1. Load cleaned data
+# ---------------------------------------------------------
+
+clean_data <- read_csv("data/cleaned/cleaned_data.csv")
+
+# Create figures folder
+dir.create("figures", showWarnings = FALSE)
+
+# ---------------------------------------------------------
+# 2. Distribution of main metric
+# ---------------------------------------------------------
+
+main_metric_distribution <- clean_data %>%
+  filter(!is.na([main_metric])) %>%
+  ggplot(aes(x = [main_metric])) +
+  geom_histogram(bins = 30) +
+  labs(
+    title = "Distribution of [Main Metric]",
+    x = "[Main Metric]",
+    y = "Number of Observations"
+  ) +
+  theme_minimal()
+
+ggsave(
+  filename = "figures/main_metric_distribution.png",
+  plot = main_metric_distribution,
+  width = 8,
+  height = 5
+)
+
+# ---------------------------------------------------------
+# 3. Top observations by main metric
+# ---------------------------------------------------------
+
+top_observations_plot <- clean_data %>%
+  filter(!is.na([main_metric])) %>%
+  arrange(desc([main_metric])) %>%
+  slice_head(n = 15) %>%
+  ggplot(aes(x = reorder([main_id_or_name_column], [main_metric]), y = [main_metric])) +
+  geom_col() +
+  coord_flip() +
+  labs(
+    title = "Top 15 Observations by [Main Metric]",
+    x = "[Observation Name]",
+    y = "[Main Metric]"
+  ) +
+  theme_minimal()
+
+ggsave(
+  filename = "figures/top_observations.png",
+  plot = top_observations_plot,
+  width = 10,
+  height = 6
+)
+
+# ---------------------------------------------------------
+# 4. Average main metric by category
+# ---------------------------------------------------------
+
+average_metric_by_category_plot <- clean_data %>%
+  group_by([category_column]) %>%
+  summarise(
+    average_main_metric = mean([main_metric], na.rm = TRUE),
+    count = n()
+  ) %>%
+  ggplot(aes(x = reorder([category_column], average_main_metric), y = average_main_metric)) +
+  geom_col() +
+  coord_flip() +
+  labs(
+    title = "Average [Main Metric] by [Category]",
+    x = "[Category]",
+    y = "Average [Main Metric]"
+  ) +
+  theme_minimal()
+
+ggsave(
+  filename = "figures/average_metric_by_category.png",
+  plot = average_metric_by_category_plot,
+  width = 8,
+  height = 5
+)
+
+# ---------------------------------------------------------
+# 5. Relationship between two numeric variables
+# ---------------------------------------------------------
+
+relationship_plot <- clean_data %>%
+  filter(!is.na([x_variable]), !is.na([y_variable])) %>%
+  ggplot(aes(x = [x_variable], y = [y_variable])) +
+  geom_point(alpha = 0.7) +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(
+    title = "[X Variable] vs [Y Variable]",
+    x = "[X Variable]",
+    y = "[Y Variable]"
+  ) +
+  theme_minimal()
+
+ggsave(
+  filename = "figures/variable_relationship.png",
+  plot = relationship_plot,
+  width = 8,
+  height = 5
+)
