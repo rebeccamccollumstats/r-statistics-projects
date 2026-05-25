@@ -179,7 +179,6 @@ The scatterplot shows a negative relationship between ATA and GIH WR. Since lowe
 Improvement when drawn had a strong positive relationship with GIH WR. Cards that improved win rate more when drawn also tended to have higher overall GIH WR.
 
 ## Skills Demonstrated
-
 This project demonstrates the following data analysis and statistics skills:
 
 - **Data cleaning in R:** Imported raw CSV data, cleaned column names, handled missing values, and converted percentage based text columns into usable numeric variables.
@@ -192,11 +191,13 @@ This project demonstrates the following data analysis and statistics skills:
 - **Communication of findings:** Summarized technical results into clear explanations for a GitHub portfolio audience.
 
 ## Final Comments
-
 This project shows how exploratory data analysis can be used to evaluate performance patterns in a strategy based card game. By combining draft behavior metrics with win rate data, the analysis identified which cards and card groups performed strongest in the *Outlaws of the Thunder Junction* limited format.
 
 The results showed that **Bonny Pall, Clearcutter** was the strongest overall card in the dataset, ranking highest in both games in hand win rate and improvement when drawn. The analysis also found that **mythic rares** and **two-color cards** had the strongest average performance across their groups.
 
-One of the clearest patterns was the relationship between draft timing and card performance. Cards picked earlier in drafts generally had higher games-in-hand win rates, suggesting that players were often able to correctly identify stronger cards during the draft process.
+One of the clearest patterns was the relationship between draft timing and card performance. Cards picked earlier in drafts generally had higher games in hand win rates, suggesting that players were often able to correctly identify stronger cards during the draft process.
 
 Overall, this project demonstrates how R, data cleaning, visualization, and statistical analysis can be used to turn raw card performance data into meaningful insights.
+
+## Conclusion
+This analysis found meaningful relationships between card rarity, color identity, draft timing, and win-rate performance. The project demonstrates how exploratory data analysis can be applied to Magic: The Gathering draft data to identify high performing cards and better understand limited format card evaluation.
