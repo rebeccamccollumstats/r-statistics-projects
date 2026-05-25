@@ -1,4 +1,6 @@
 # 02_exploratory_analysis.R
+
+'''r
 # Project: [Project Name]
 # Purpose: Explore the cleaned dataset using summary statistics and grouped analysis.
 
