@@ -1,3 +1,9 @@
+## Project 4: Magic: The Gathering Ratings Analysis
+
+**Project Type:** EDA  
+**Primary Tool:** R  
+**Project Status:** Completed — Future improvements possible
+
 ## Data Dictionary
 
 This dataset contains card-level draft performance data for Magic: The Gathering cards from the *Outlaws of the Thunder Junction* set. The table below lists each variable, its shorthand meaning, and how it was used in the analysis.
@@ -121,4 +127,54 @@ Color also showed meaningful differences. Two color cards had the highest averag
 The correlation results showed that IWD and GIH WR had a strong positive relationship, with a correlation of about 0.82. This means cards that improved win rate more when drawn also tended to have higher overall games in hand win rates.
 
 There was also a strong negative relationship between ATA and GIH WR, with a correlation of about -0.68. Since lower ATA means a card was picked earlier, this suggests that cards drafted earlier generally performed better. In other words, this means that players were often correctly identifying strong cards during drafts.
+
+## Key Visualizations
+
+### Distribution of Games-in-Hand Win Rate
+
+![Distribution of Games-in-Hand Win Rate](figures/gih_wr_distribution.png)
+
+Most cards fall between roughly 50% and 58% games-in-hand win rate, with a smaller number of cards performing much higher or lower than the main group.
+
+### Top Cards by Games-in-Hand Win Rate
+
+![Top 15 Cards by Games-in-Hand Win Rate](figures/top_15_gih_wr_cards.png)
+
+The top-performing cards by GIH WR were mostly rare and mythic rare cards. **Bonny Pall, Clearcutter** had the highest games-in-hand win rate in the dataset.
+
+### Top Cards by Improvement When Drawn
+
+![Top 15 Cards by Improvement When Drawn](figures/top_15_iwd_cards.png)
+
+Improvement when drawn shows which cards had the largest positive impact when they were seen during games. **Bonny Pall, Clearcutter** also ranked highest by this metric.
+
+### Average GIH WR by Rarity
+
+![Average GIH WR by Rarity](figures/average_gih_wr_by_rarity.png)
+
+Mythic rares had the highest average games-in-hand win rate, followed by rares, uncommons, and commons. This suggests that rarity was meaningfully related to card strength in this draft environment.
+
+### Average GIH WR by Color Group
+
+![Average GIH WR by Color Group](figures/average_gih_wr_by_color_group.png)
+
+Two-color cards had the highest average games-in-hand win rate. Mono-color cards were close behind, while three-plus-color and colorless/other cards had slightly lower averages.
+
+### Average GIH WR by Individual Color
+
+![Average GIH WR by Color](figures/average_gih_wr_by_color.png)
+
+Among color labels with at least three cards, **WG**, **RG**, and **UG** had the strongest average games-in-hand win rates. Mono-green also performed strongly.
+
+### Draft Pick Timing vs Card Performance
+
+![Draft Pick Timing vs Card Performance](figures/ata_vs_gih_wr.png)
+
+The scatterplot shows a negative relationship between ATA and GIH WR. Since lower ATA means a card was picked earlier, this suggests that cards drafted earlier tended to perform better.
+
+### Improvement When Drawn vs Games-in-Hand Win Rate
+
+![Improvement When Drawn vs Games-in-Hand Win Rate](figures/iwd_vs_gih_wr.png)
+
+Improvement when drawn had a strong positive relationship with games-in-hand win rate. Cards that improved win rate more when drawn also tended to have higher overall GIH WR.
 
