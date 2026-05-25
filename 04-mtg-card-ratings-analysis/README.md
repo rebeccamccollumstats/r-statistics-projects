@@ -130,13 +130,13 @@ There was also a strong negative relationship between ATA and GIH WR, with a cor
 
 ## Key Visualizations
 
-### Distribution of Games-in-Hand Win Rate
+### Distribution of Games in Hand Win Rate
 
 ![Distribution of Games-in-Hand Win Rate](figures/gih_wr_distribution.png)
 
 Most cards fall between roughly 50% and 58% GIH WR, with a smaller number of cards performing much higher or lower than the main group.
 
-### Top Cards by Games-in-Hand Win Rate
+### Top Cards by Games in Hand Win Rate
 
 ![Top 15 Cards by Games-in-Hand Win Rate](figures/top_15_gih_wr_cards.png)
 
@@ -178,3 +178,25 @@ The scatterplot shows a negative relationship between ATA and GIH WR. Since lowe
 
 Improvement when drawn had a strong positive relationship with GIH WR. Cards that improved win rate more when drawn also tended to have higher overall GIH WR.
 
+## Skills Demonstrated
+
+This project demonstrates the following data analysis and statistics skills:
+
+- **Data cleaning in R:** Imported raw CSV data, cleaned column names, handled missing values, and converted percentage based text columns into usable numeric variables.
+- **Exploratory data analysis:** Used summary statistics, grouped comparisons, and filtered tables to explore card performance across rarity, color, and draft behavior.
+- **Feature creation:** Created new variables such as `color_group` and `rarity_full` to make the dataset easier to analyze and interpret.
+- **Statistical interpretation:** Compared average win rates, improvement when drawn, and draft timing metrics to identify patterns in card performance.
+- **Correlation analysis:** Examined relationships between variables such as `IWD`, `GIH WR`, `ATA`, and overall card performance.
+- **Data visualization:** Created charts using `ggplot2` to show distributions, top-performing cards, group comparisons, and relationships between key variables.
+- **Domain-specific analysis:** Applied statistical thinking to Magic: The Gathering draft data by interpreting card strength, draft behavior, rarity trends, and color-based performance.
+- **Communication of findings:** Summarized technical results into clear explanations for a GitHub portfolio audience.
+
+## Final Comments
+
+This project shows how exploratory data analysis can be used to evaluate performance patterns in a strategy based card game. By combining draft behavior metrics with win rate data, the analysis identified which cards and card groups performed strongest in the *Outlaws of the Thunder Junction* limited format.
+
+The results showed that **Bonny Pall, Clearcutter** was the strongest overall card in the dataset, ranking highest in both games in hand win rate and improvement when drawn. The analysis also found that **mythic rares** and **two-color cards** had the strongest average performance across their groups.
+
+One of the clearest patterns was the relationship between draft timing and card performance. Cards picked earlier in drafts generally had higher games-in-hand win rates, suggesting that players were often able to correctly identify stronger cards during the draft process.
+
+Overall, this project demonstrates how R, data cleaning, visualization, and statistical analysis can be used to turn raw card performance data into meaningful insights.
