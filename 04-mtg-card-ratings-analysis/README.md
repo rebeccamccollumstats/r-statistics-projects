@@ -187,7 +187,7 @@ This project demonstrates the following data analysis and statistics skills:
 - **Statistical interpretation:** Compared average win rates, improvement when drawn, and draft timing metrics to identify patterns in card performance.
 - **Correlation analysis:** Examined relationships between variables such as `IWD`, `GIH WR`, `ATA`, and overall card performance.
 - **Data visualization:** Created charts using `ggplot2` to show distributions, top-performing cards, group comparisons, and relationships between key variables.
-- **Domain-specific analysis:** Applied statistical thinking to Magic: The Gathering draft data by interpreting card strength, draft behavior, rarity trends, and color-based performance.
+- **Domain specific analysis:** Applied statistical thinking to Magic: The Gathering draft data by interpreting card strength, draft behavior, rarity trends, and color-based performance.
 - **Communication of findings:** Summarized technical results into clear explanations for a GitHub portfolio audience.
 
 ## Final Comments
