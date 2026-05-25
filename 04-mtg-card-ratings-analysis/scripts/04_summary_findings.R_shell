@@ -1,0 +1,79 @@
+# 04_summary_findings.R
+# Project: [Project Name]
+# Purpose: Create final summary tables for README interpretation.
+
+library(tidyverse)
+
+# ---------------------------------------------------------
+# 1. Load cleaned data
+# ---------------------------------------------------------
+
+clean_data <- read_csv("data/cleaned/cleaned_data.csv")
+
+# Create outputs folder
+dir.create("outputs", showWarnings = FALSE)
+
+# ---------------------------------------------------------
+# 2. Final project summary
+# ---------------------------------------------------------
+
+final_summary <- clean_data %>%
+  summarise(
+    total_rows = n(),
+    total_unique_items = n_distinct([main_id_or_name_column]),
+    average_main_metric = mean([main_metric], na.rm = TRUE),
+    median_main_metric = median([main_metric], na.rm = TRUE),
+    min_main_metric = min([main_metric], na.rm = TRUE),
+    max_main_metric = max([main_metric], na.rm = TRUE)
+  )
+
+print(final_summary)
+
+# ---------------------------------------------------------
+# 3. Best observation by main metric
+# ---------------------------------------------------------
+
+best_observation <- clean_data %>%
+  filter(!is.na([main_metric])) %>%
+  arrange(desc([main_metric])) %>%
+  select([main_id_or_name_column], [category_column], [main_metric], everything()) %>%
+  slice_head(n = 1)
+
+print(best_observation)
+
+# ---------------------------------------------------------
+# 4. Best category by average main metric
+# ---------------------------------------------------------
+
+best_category <- clean_data %>%
+  group_by([category_column]) %>%
+  summarise(
+    count = n(),
+    average_main_metric = mean([main_metric], na.rm = TRUE),
+    median_main_metric = median([main_metric], na.rm = TRUE)
+  ) %>%
+  arrange(desc(average_main_metric)) %>%
+  slice_head(n = 1)
+
+print(best_category)
+
+# ---------------------------------------------------------
+# 5. Correlation summary
+# ---------------------------------------------------------
+
+correlation_summary <- clean_data %>%
+  select(where(is.numeric)) %>%
+  cor(use = "pairwise.complete.obs") %>%
+  as.data.frame() %>%
+  rownames_to_column("metric")
+
+print(correlation_summary)
+
+# ---------------------------------------------------------
+# 6. Save final outputs
+# ---------------------------------------------------------
+
+write_csv(final_summary, "outputs/final_summary.csv")
+write_csv(best_observation, "outputs/best_observation.csv")
+write_csv(best_category, "outputs/best_category.csv")
+write_csv(correlation_summary, "outputs/correlation_summary.csv")
