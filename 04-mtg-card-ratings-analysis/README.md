@@ -85,7 +85,7 @@ The following variables were created during the data cleaning process to make th
 
 ## Project Summary: Magic: The Gathering Draft Card Ratings Analysis
 
-This project analyzed Magic: The Gathering card performance data from *Outlaws of the Thunder Junction* draft format. The main goal for this project was to understand which cards, colors, rarity groups, and draft behaviors were associated with stronger limited format performance.
+This project analyzed **Magic: The Gathering card performance data** from *Outlaws of the Thunder Junction* draft format. The main goal for this project was to understand which cards, colors, rarity groups, and draft behaviors were associated with stronger limited format performance.
 
 The dataset contained 376 unique cards and included draft related metrics such as how often cards were seen, picked, played, drawn, and how often they were associated with player wins. The project was completed as an exploratory data analysis project in R, using data cleaning, summary statistics, grouped comparisons, correlations, and visualizations. 
 
