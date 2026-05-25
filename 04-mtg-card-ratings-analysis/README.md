@@ -81,7 +81,7 @@ The following variables were created during the data cleaning process to make th
 
 This project analyzed Magic: The Gathering card performance data from *Outlaws of the Thunder Junction* draft format. The main goal for this project was to understand which cards, colors, rarity groups, and draft behaviors were associated with stronger limited format performance.
 
-The dataset contained 376 unique cards and included draft related metrics such as how often cards were seen, picked, played, drawn, and how often they were asssociated with player wins. The project was completed as an exploratory data analysis project in R, using data cleaning, summary statistics, grouped comparisons, correlations, and visualitzations. 
+The dataset contained 376 unique cards and included draft related metrics such as how often cards were seen, picked, played, drawn, and how often they were associated with player wins. The project was completed as an exploratory data analysis project in R, using data cleaning, summary statistics, grouped comparisons, correlations, and visualizations. 
 
 ## METHODOLOGY
 The project started by importing and cleaning the raw Kaggle dataset. Column names were standardized, percentage based variables were converted from text into numeric values, missing color values were labeled Colorless/Other, and new grouping variables were created for color group and rarity group.
@@ -107,18 +107,18 @@ The main purpose was to find patterns in card strength and draft performance.
 -  Whether cards picked earlier in drafts also had higher win rates
 -  Whether IWD and GIH WR were strongly related
 
-The project focused heavily on games in hand win rate (GIH WR), because it is one of the most useful performance metrics for limited card evaluation. It also used improvement when draw (IWD), to measure how much a card improved a deck's win rate when it was actually seen during a game.
+The project focused heavily on games in hand win rate (GIH WR), because it is one of the most useful performance metrics for limited card evaluation. It also used improvement when drawn (IWD), to measure how much a card improved a deck's win rate when it was actually seen during a game.
 
 ## FINDINGS
 The final cleaned dataset included 376 unique cards. The average GIH WR was about 54.5%, and the median was about 54.4%. The average IWD was +2.59 percentage points, meaning that, on average, cards improved game outcomes when drawn. 
 
-The strongest overall card was Bonny Pall Clearcutter. It had the highest GIH WR at 66.2% and the highest IWD at +16.3 percentage points. This made it the clearest top performer in the dataset.
+The strongest overall card was Bonny Pall, Clearcutter. It had the highest GIH WR at 66.2% and the highest IWD at +16.3 percentage points. This made it the clearest top performer in the dataset.
 
 Rarity was also connected to performance. Mythic rares had the highest average GIH WR at 56.2%, along with the highest average improvement when drawn at +4.95 percentage points. This suggests that higher rarity cards tended to be stronger and more impactful in this draft format.
 
 Color also showed meaningful differences. Two color cards had the highest average GIH WR at 55.7%, and green based color combinations performed especially well. Among individual color labels, WG, RG, and UG were among the strongest groups.
 
-The correlations results showed that IWD and GIH WR had a strong positive relationship, with a correlations of about 0.82. This means cards that improved win rate more when drawn also tended to have higher overall games in hand win rates.
+The correlation results showed that IWD and GIH WR had a strong positive relationship, with a correlation of about 0.82. This means cards that improved win rate more when drawn also tended to have higher overall games in hand win rates.
 
 There was also a strong negative relationship between ATA and GIH WR, with a correlation of about -0.68. Since lower ATA means a card was picked earlier, this suggests that cards drafted earlier generally performed better. In other words, this means that players were often correctly identifying strong cards during drafts.
 
