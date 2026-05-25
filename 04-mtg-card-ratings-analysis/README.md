@@ -193,11 +193,11 @@ This project demonstrates the following data analysis and statistics skills:
 ## Final Comments
 This project shows how exploratory data analysis can be used to evaluate performance patterns in a strategy based card game. By combining draft behavior metrics with win rate data, the analysis identified which cards and card groups performed strongest in the *Outlaws of the Thunder Junction* limited format.
 
-The results showed that **Bonny Pall, Clearcutter** was the strongest overall card in the dataset, ranking highest in both games in hand win rate and improvement when drawn. The analysis also found that **mythic rares** and **two-color cards** had the strongest average performance across their groups.
+The results showed that **Bonny Pall, Clearcutter** was the strongest overall card in the dataset, ranking highest in both games in hand win rate and improvement when drawn. The analysis also found that **mythic rares** and **two color cards** had the strongest average performance across their groups.
 
 One of the clearest patterns was the relationship between draft timing and card performance. Cards picked earlier in drafts generally had higher games in hand win rates, suggesting that players were often able to correctly identify stronger cards during the draft process.
 
 Overall, this project demonstrates how R, data cleaning, visualization, and statistical analysis can be used to turn raw card performance data into meaningful insights.
 
 ## Conclusion
-This analysis found meaningful relationships between card rarity, color identity, draft timing, and win-rate performance. The project demonstrates how exploratory data analysis can be applied to Magic: The Gathering draft data to identify high performing cards and better understand limited format card evaluation.
+This analysis found meaningful relationships between card rarity, color identity, draft timing, and win rate performance. The project demonstrates how exploratory data analysis can be applied to Magic: The Gathering draft data to identify high performing cards and better understand limited format card evaluation.
