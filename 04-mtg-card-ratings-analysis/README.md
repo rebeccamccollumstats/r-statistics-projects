@@ -134,19 +134,19 @@ There was also a strong negative relationship between ATA and GIH WR, with a cor
 
 ![Distribution of Games-in-Hand Win Rate](figures/gih_wr_distribution.png)
 
-Most cards fall between roughly 50% and 58% games-in-hand win rate, with a smaller number of cards performing much higher or lower than the main group.
+Most cards fall between roughly 50% and 58% GIH WR, with a smaller number of cards performing much higher or lower than the main group.
 
 ### Top Cards by Games-in-Hand Win Rate
 
 ![Top 15 Cards by Games-in-Hand Win Rate](figures/top_15_gih_wr_cards.png)
 
-The top-performing cards by GIH WR were mostly rare and mythic rare cards. **Bonny Pall, Clearcutter** had the highest games-in-hand win rate in the dataset.
+The top-performing cards by GIH WR were mostly rare and mythic rare cards. **Bonny Pall, Clearcutter** had the highest GIH WR in the dataset.
 
 ### Top Cards by Improvement When Drawn
 
 ![Top 15 Cards by Improvement When Drawn](figures/top_15_iwd_cards.png)
 
-Improvement when drawn shows which cards had the largest positive impact when they were seen during games. **Bonny Pall, Clearcutter** also ranked highest by this metric.
+IWD shows which cards had the largest positive impact when they were seen during games. **Bonny Pall, Clearcutter** also ranked highest by this metric.
 
 ### Average GIH WR by Rarity
 
@@ -158,13 +158,13 @@ Mythic rares had the highest average games-in-hand win rate, followed by rares, 
 
 ![Average GIH WR by Color Group](figures/average_gih_wr_by_color_group.png)
 
-Two-color cards had the highest average games-in-hand win rate. Mono-color cards were close behind, while three-plus-color and colorless/other cards had slightly lower averages.
+Two color cards had the highest average GIH WR. Mono-color cards were close behind, while three plus color and colorless/other cards had slightly lower averages.
 
 ### Average GIH WR by Individual Color
 
 ![Average GIH WR by Color](figures/average_gih_wr_by_color.png)
 
-Among color labels with at least three cards, **WG**, **RG**, and **UG** had the strongest average games-in-hand win rates. Mono-green also performed strongly.
+Among color labels with at least three cards, **WG**, **RG**, and **UG** had the strongest average GIH WR. Green also performed strongly.
 
 ### Draft Pick Timing vs Card Performance
 
@@ -176,5 +176,5 @@ The scatterplot shows a negative relationship between ATA and GIH WR. Since lowe
 
 ![Improvement When Drawn vs Games-in-Hand Win Rate](figures/iwd_vs_gih_wr.png)
 
-Improvement when drawn had a strong positive relationship with games-in-hand win rate. Cards that improved win rate more when drawn also tended to have higher overall GIH WR.
+Improvement when drawn had a strong positive relationship with GIH WR. Cards that improved win rate more when drawn also tended to have higher overall GIH WR.
 
