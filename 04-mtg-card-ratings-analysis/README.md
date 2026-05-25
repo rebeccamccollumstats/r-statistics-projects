@@ -87,12 +87,12 @@ The dataset contained 376 unique cards and included draft related metrics such a
 The project started by importing and cleaning the raw Kaggle dataset. Column names were standardized, percentage based variables were converted from text into numeric values, missing color values were labeled Colorless/Other, and new grouping variables were created for color group and rarity group.
 
 ### After cleaning, the project analyzed: 
-- [] Card performance by games-in-hand win rate
-- [] Card impact by improvement when drawn
-- [] Performance by rarity
-- [] Performance by color and color group
-- [] Draft behavior using ATA and ALSA
-- [] Relationships between draft timing and win-rate performance
+- Card performance by games-in-hand win rate
+-  Card impact by improvement when drawn
+-  Performance by rarity
+-  Performance by color and color group
+-  Draft behavior using ATA and ALSA
+-  Relationships between draft timing and win-rate performance
 
 Several output tables and charts were created, including top performing cards, lowest performing cards, performance by rarity, performance by color, correlation summaries, visualizations showing distributions and relationships between key variables.
 
@@ -100,12 +100,12 @@ Several output tables and charts were created, including top performing cards, l
 The main purpose was to find patterns in card strength and draft performance. 
 
 ### Specifically, the project looked for: 
-- [] Which cards performed best overall
-- [] Which cards improved win rate the most when drawn
-- [] Whether rarity was related to stronger performance
-- [] Whether certain colors or color combinations performed better
-- [] Whether cards picked earlier in drafts also had higher win rates
-- [] Whether IWD and GIH WR were strongly related
+-  Which cards performed best overall
+-  Which cards improved win rate the most when drawn
+-  Whether rarity was related to stronger performance
+-  Whether certain colors or color combinations performed better
+-  Whether cards picked earlier in drafts also had higher win rates
+-  Whether IWD and GIH WR were strongly related
 
 The project focused heavily on games in hand win rate (GIH WR), because it is one of the most useful performance metrics for limited card evaluation. It also used improvement when draw (IWD), to measure how much a card improved a deck's win rate when it was actually seen during a game.
 
